@@ -1,0 +1,12 @@
+<% @stores.each do |store| %>
+<h1><%= link_to(store.name, store_path(store)) %> <small><%= store_user_email(store.user_id) %></small></h1>
+<p><%= store.tel %></p>
+<p><%= truncate(store.content, length: 100) %></p>
+<%= link_to("D", store_path(store), class:'label label-default has-tooltip', title: 'Delete', method: :delete, data: { confirm: "Are you sure?" } ) %>
+<%= link_to("E", edit_store_path(store), class:'label label-success has-tooltip', title: 'Edit' ) %>
+
+<h3><small>目前叫號：</small><%= store_line_number(store.id) %></h3>
+<h3><small>排隊中：</small><%= user_line_number(store.id) %></h3>
+
+<hr>
+<% end %>

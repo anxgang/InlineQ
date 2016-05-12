@@ -1,0 +1,7 @@
+<%= simple_form_for(@store) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :tel %>
+  <%= f.input :content %>
+  <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "submiting..." } %>
+<% end %>
+</div>

@@ -1,0 +1,4 @@
+<h1><%= @store.name %> <small><%= store_user_email(@store.user_id) %></small></h1>
+<p><%= @store.tel %></p>
+<p><%= simple_format(@store.content) %></p>
+<%= link_to("Line Up", line_up_store_path, class: 'btn btn-primary') %>
