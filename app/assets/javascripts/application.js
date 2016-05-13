@@ -21,8 +21,8 @@ $(document).ready(function() {
   $('.has-tooltip').tooltip();
 
   //notice message
-  $(".alert").fadeTo(2000, 500).slideUp(500, function(){
-    $(".alert").alert('close');
+  $("#notice-message").fadeTo(2000, 500).slideUp(500, function(){
+    $("#notice-message").alert('close');
   });
 
 });

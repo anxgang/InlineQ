@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :stores do
     member do
       get :line_up
+      get :next_one
+      get :last_one
     end
   end
 

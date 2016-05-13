@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511191453) do
+ActiveRecord::Schema.define(version: 20160513092224) do
 
   create_table "numbers", force: :cascade do |t|
     t.integer  "number"
@@ -29,8 +29,10 @@ ActiveRecord::Schema.define(version: 20160511191453) do
     t.text     "content"
     t.string   "tel"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "numbers_count",  default: 0
+    t.integer  "current_number", default: 0
   end
 
   add_index "stores", ["user_id"], name: "index_stores_on_user_id"

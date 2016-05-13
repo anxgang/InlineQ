@@ -1,4 +1,116 @@
+<div class="row">
+
+      <div class="col-md-3">
+          <p class="lead"><%= @store.name %></p>
+          <div class="list-group">
+              <a href="#" class="list-group-item active">Category 1</a>
+              <a href="#" class="list-group-item">Category 2</a>
+              <a href="#" class="list-group-item">Category 3</a>
+          </div>
+      </div>
+
+      <div class="col-md-9">
+
+          <div class="thumbnail">
+              <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+              <div class="caption-full">
+                  <h4 class="pull-right"><%= store_user_email(@store.user_id) %></h4>
+                  <h4><a href="#"><%= @store.name %></a>
+                  </h4>
+                  <p><%= @store.tel %></p>
+                  <p><%= simple_format(@store.content) %></p>
+                  <h3><small>目前叫號：</small><%= store_current_number(@store.id) %></h3>
+                  <h3><small>目前發放號碼：</small><%= store_line_number(@store.id) %></h3>
+                  <h3><small>您的排隊號碼：</small><%= user_line_number(@store.id) %></h3>
+
+                  <%= link_to("D", store_path(@store), class:'label label-default has-tooltip', title: 'Delete', method: :delete, data: { confirm: "Are you sure?" } ) %>
+                  <%= link_to("E", edit_store_path(@store), class:'label label-success has-tooltip', title: 'Edit' ) %>
+
+                  <%= link_to("上一位", last_one_store_path(@store), class:'label label-danger has-tooltip', title: '上一位'	) %>
+                  <%= link_to("下一位", next_one_store_path(@store), class:'label label-danger has-tooltip', title: '下一位'	) %>
+
+                  <% if is_in_line(@store.id) %>
+                  <%= link_to("您已經在隊列中", line_up_store_path(@store), class: 'btn btn-danger pull-right disabled') %>
+                  <% else %>
+                  <%= link_to("立刻排隊", line_up_store_path(@store), class: 'btn btn-primary pull-right') %>
+                  <% end %>
+              </div>
+
+
+              <hr>
+              <div class="ratings">
+                  <p class="pull-right">3 reviews</p>
+                  <p>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                      4.0 stars
+                  </p>
+              </div>
+          </div>
+
+          <div class="well">
+
+              <div class="text-right">
+                  <a class="btn btn-success">Leave a Review</a>
+              </div>
+
+              <hr>
+
+              <div class="row">
+                  <div class="col-md-12">
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                      Anonymous
+                      <span class="pull-right">10 days ago</span>
+                      <p>This product was great in terms of quality. I would definitely buy another!</p>
+                  </div>
+              </div>
+
+              <hr>
+
+              <div class="row">
+                  <div class="col-md-12">
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                      Anonymous
+                      <span class="pull-right">12 days ago</span>
+                      <p>I've alredy ordered another one!</p>
+                  </div>
+              </div>
+
+              <hr>
+
+              <div class="row">
+                  <div class="col-md-12">
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                      Anonymous
+                      <span class="pull-right">15 days ago</span>
+                      <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+<!--
 <h1><%= @store.name %> <small><%= store_user_email(@store.user_id) %></small></h1>
 <p><%= @store.tel %></p>
 <p><%= simple_format(@store.content) %></p>
 <%= link_to("Line Up", line_up_store_path, class: 'btn btn-primary') %>
+-->

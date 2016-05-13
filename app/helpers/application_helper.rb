@@ -11,7 +11,7 @@ module ApplicationHelper
       alert_type = alert_types[type.to_sym] || type
       alert_class = "alert alert-#{alert_type} alert-dismissable"
 
-      content_tag(:div, alert_content, class: alert_class)
+      content_tag(:div, alert_content, class: alert_class, id: 'notice-message')
     end
 
     alerts.join("\n").html_safe
