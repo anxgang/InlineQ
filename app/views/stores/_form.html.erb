@@ -2,6 +2,17 @@
   <%= f.input :name %>
   <%= f.input :tel %>
   <%= f.input :content %>
+  <% if @photo.image.present? %>
+    <span>目前商店圖</span> <br>
+    <%= image_tag(@photo.image.thumb.url) %>
+  <% end %>
+  <div class="form-group">
+    <%= f.simple_fields_for :store_photo do |c| %>
+    <%= c.input :image , as: :file %>
+    <% end %>
+  </div>
+
+
   <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "submiting..." } %>
 <% end %>
 </div>

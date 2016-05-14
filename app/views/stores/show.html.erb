@@ -12,7 +12,7 @@
       <div class="col-md-9">
 
           <div class="thumbnail">
-              <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+              <%= image_tag(@store.store_photo.try(:image).try(:url), class: "img-responsive") %>
               <div class="caption-full">
                   <h4 class="pull-right"><%= store_user_email(@store.user_id) %></h4>
                   <h4><a href="#"><%= @store.name %></a>
@@ -23,14 +23,20 @@
                   <h3><small>目前發放號碼：</small><%= store_line_number(@store.id) %></h3>
                   <h3><small>您的排隊號碼：</small><%= user_line_number(@store.id) %></h3>
 
-                  <%= link_to("D", store_path(@store), class:'label label-default has-tooltip', title: 'Delete', method: :delete, data: { confirm: "Are you sure?" } ) %>
-                  <%= link_to("E", edit_store_path(@store), class:'label label-success has-tooltip', title: 'Edit' ) %>
+                  <div class="btn-group">
+                    <%= link_to("Del", store_path(@store), class:'btn btn-xs btn-default has-tooltip', title: 'Delete', method: :delete, data: { confirm: "Are you sure?" } ) %>
+                    <%= link_to("Edit", edit_store_path(@store), class:'btn btn-xs  btn-default has-tooltip', title: 'Edit' ) %>
 
-                  <%= link_to("上一位", last_one_store_path(@store), class:'label label-danger has-tooltip', title: '上一位'	) %>
-                  <%= link_to("下一位", next_one_store_path(@store), class:'label label-danger has-tooltip', title: '下一位'	) %>
+                    <%= link_to("上一位", last_one_store_path(@store), class:'btn btn-xs  btn-danger has-tooltip', title: '上一位'	) %>
+                    <%= link_to("下一位", next_one_store_path(@store), class:'btn btn-xs  btn-success has-tooltip', title: '下一位'	) %>
+                  </div>
 
                   <% if is_in_line(@store.id) %>
-                  <%= link_to("您已經在隊列中", line_up_store_path(@store), class: 'btn btn-danger pull-right disabled') %>
+                    <% if store_current_number(@store.id)==user_line_number(@store.id) %>
+                      <%= link_to("恭喜！輪到您囉！", line_up_store_path(@store), class: 'btn btn-success pull-right disabled') %>
+                    <% else %>
+                      <%= link_to("您已經在隊列中", line_up_store_path(@store), class: 'btn btn-danger pull-right disabled') %>
+                    <% end %>
                   <% else %>
                   <%= link_to("立刻排隊", line_up_store_path(@store), class: 'btn btn-primary pull-right') %>
                   <% end %>
@@ -54,7 +60,7 @@
           <div class="well">
 
               <div class="text-right">
-                  <a class="btn btn-success">Leave a Review</a>
+                  <a class="btn btn-default">Leave a Review</a>
               </div>
 
               <hr>

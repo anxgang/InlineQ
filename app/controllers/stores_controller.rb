@@ -1,13 +1,16 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_store, only: [:edit, :update, :destroy, :show, :line_up, :next_one, :last_one]
+  helper_method :is_in_line
 
   def index
     @stores = Store.all
+    @banner_stores = Store.first(2)
   end
 
   def new
     @store = Store.new
+    @photo = @store.build_store_photo
   end
 
   def create
@@ -21,11 +24,14 @@ class StoresController < ApplicationController
   end
 
   def edit
-    @store = Store.find(params[:id])
+    if @store.store_photo.present?
+      @photo = @store.store_photo
+    else
+      @photo = @store.build_store_photo
+    end
   end
 
   def update
-    @store = Store.find(params[:id])
     if @store.update(store_params)
       redirect_to stores_path, notice: '已成功更新商店！'
     else
@@ -44,8 +50,8 @@ class StoresController < ApplicationController
   # 加入排隊
   def line_up
     # 檢查是否已存在隊列中
-    if is_in_line(@store.id)
-      return redirect_to store_path(@store), alert: "您已經在隊列中了，您的號碼為#{@exist_number.number}！"
+    if @num=is_in_line(@store.id)
+      return redirect_to store_path(@store), alert: "您已經在隊列中了，您的號碼為#{@num}！"
     end
 
     # 產生新排隊號碼
@@ -79,6 +85,13 @@ class StoresController < ApplicationController
   end
 
   private
+  #是否在隊列中
+  def is_in_line(store_id)
+    if user_signed_in?
+      @number = Number.where(store_id: store_id, user_id: current_user.id).order('number DESC').take
+      @number.present? ? @number.number : nil
+    end
+  end
 
   def get_new_number(store)
     @number = Number.where(store_id: store.id).order('number DESC').take
@@ -90,7 +103,7 @@ class StoresController < ApplicationController
   end
 
   def store_params
-    params.require(:store).permit(:name, :tel, :content)
+    params.require(:store).permit(:name, :tel, :content, store_photo_attributes: [:image, :id])
   end
 
 end

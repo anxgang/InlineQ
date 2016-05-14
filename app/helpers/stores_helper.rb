@@ -1,10 +1,25 @@
 module StoresHelper
-  #是否在隊列中
-  def is_in_line(store_id)
-    @number = Number.where(store_id: @store.id, user_id: current_user.id).order('number DESC').take
-    @number.present? ? @number.number : nil
+  def show_store_banner(store)
+    if store.store_photo.present?
+      str = image_tag(store.store_photo.image.url, class: "slide-image")
+      content_tag(:a, str, href: store_path(store))
+    else
+      content_tag(:img, "", src: "http://placehold.it/800x300", class: "slide-image")
+    end
   end
 
+  def show_store_img(store, size)
+    if store.store_photo.present?
+      if size!=''
+        str = image_tag(store.store_photo.image.size.url)
+      else
+        str = image_tag(store.store_photo.image.url, style: "vertical-align: middle;")
+      end
+      content_tag(:div, str, style: " background: #ddd; height: 150px;")
+    else
+      content_tag(:img, "", src: "http://placehold.it/320x160")
+    end
+  end
 
   # 擁有商店的使用者email
   def store_user_email(user_id)
