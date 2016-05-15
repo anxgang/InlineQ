@@ -1,4 +1,11 @@
 module StoresHelper
+  def show_category_badge(category)
+    if category.present?
+      str = Store.where(category: category).count
+      content_tag(:span, str, class: "badge") if str!=0
+    end
+  end
+
   def show_store_banner(store)
     if store.store_photo.present?
       str = image_tag(store.store_photo.image.url, class: "slide-image")
@@ -13,11 +20,11 @@ module StoresHelper
       if size!=''
         str = image_tag(store.store_photo.image.size.url)
       else
-        str = image_tag(store.store_photo.image.url, style: "vertical-align: middle;")
+        str = image_tag(store.store_photo.image.url)
       end
-      content_tag(:div, str, style: " background: #ddd; height: 150px;")
+      content_tag(:div, str, style: "background: #ddd; height: 150px")
     else
-      content_tag(:img, "", src: "http://placehold.it/320x160")
+      content_tag(:img, "", src: "http://placehold.it/320x180")
     end
   end
 

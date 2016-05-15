@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get :line_up
       get :next_one
       get :last_one
+      get :reset
     end
   end
 

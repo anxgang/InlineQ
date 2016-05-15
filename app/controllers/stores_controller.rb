@@ -1,11 +1,17 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_store, only: [:edit, :update, :destroy, :show, :line_up, :next_one, :last_one]
+  before_action :set_store, only: [:edit, :update, :destroy, :show, :line_up, :next_one, :last_one, :reset]
   helper_method :is_in_line
 
   def index
-    @stores = Store.all
-    @banner_stores = Store.first(2)
+    if params[:category].present? && params[:category]!='0'
+      @stores = Store.where(category_id: params[:category])
+    else
+      @stores = Store.all
+    end
+
+    @banner_stores = Store.first(3)
+    @categories = Category.all
   end
 
   def new
@@ -84,6 +90,17 @@ class StoresController < ApplicationController
     end
   end
 
+  def reset
+    #叫號歸0
+    @store.current_number = 0
+    @store.save
+
+    #清空Number
+    Number.where(store_id: @store.id).destroy_all
+
+    redirect_to :back, notice: "已成功清空排隊資料囉！"
+  end
+
   private
   #是否在隊列中
   def is_in_line(store_id)
@@ -103,7 +120,7 @@ class StoresController < ApplicationController
   end
 
   def store_params
-    params.require(:store).permit(:name, :tel, :content, store_photo_attributes: [:image, :id])
+    params.require(:store).permit(:name, :tel, :content, :category_id, store_photo_attributes: [:image, :id])
   end
 
 end

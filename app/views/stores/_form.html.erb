@@ -2,6 +2,7 @@
   <%= f.input :name %>
   <%= f.input :tel %>
   <%= f.input :content %>
+  <%= f.input :category_id, collection: Category.all, label_method: :name, value_method: :id,:label => "category" ,:include_blank => "請選擇..." %>
   <% if @photo.image.present? %>
     <span>目前商店圖</span> <br>
     <%= image_tag(@photo.image.thumb.url) %>

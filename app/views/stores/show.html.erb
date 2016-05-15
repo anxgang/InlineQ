@@ -19,13 +19,14 @@
                   </h4>
                   <p><%= @store.tel %></p>
                   <p><%= simple_format(@store.content) %></p>
+                  <h3><small>排隊人數：</small><%= store_line_number(@store.id) %></h3>
                   <h3><small>目前叫號：</small><%= store_current_number(@store.id) %></h3>
-                  <h3><small>目前發放號碼：</small><%= store_line_number(@store.id) %></h3>
                   <h3><small>您的排隊號碼：</small><%= user_line_number(@store.id) %></h3>
 
                   <div class="btn-group">
-                    <%= link_to("Del", store_path(@store), class:'btn btn-xs btn-default has-tooltip', title: 'Delete', method: :delete, data: { confirm: "Are you sure?" } ) %>
-                    <%= link_to("Edit", edit_store_path(@store), class:'btn btn-xs  btn-default has-tooltip', title: 'Edit' ) %>
+                    <%= link_to("刪除", store_path(@store), class:'btn btn-xs btn-default has-tooltip', title: 'Delete', method: :delete, data: { confirm: "Are you sure?" } ) %>
+                    <%= link_to("編輯", edit_store_path(@store), class:'btn btn-xs  btn-default has-tooltip', title: 'Edit' ) %>
+                    <%= link_to("清空排隊", reset_store_path(@store), class:'btn btn-xs  btn-default has-tooltip', title: 'Reset' ) %>
 
                     <%= link_to("上一位", last_one_store_path(@store), class:'btn btn-xs  btn-danger has-tooltip', title: '上一位'	) %>
                     <%= link_to("下一位", next_one_store_path(@store), class:'btn btn-xs  btn-success has-tooltip', title: '下一位'	) %>
@@ -113,10 +114,3 @@
       </div>
 
   </div>
-
-<!--
-<h1><%= @store.name %> <small><%= store_user_email(@store.user_id) %></small></h1>
-<p><%= @store.tel %></p>
-<p><%= simple_format(@store.content) %></p>
-<%= link_to("Line Up", line_up_store_path, class: 'btn btn-primary') %>
--->
