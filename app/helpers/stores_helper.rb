@@ -48,7 +48,7 @@ module StoresHelper
   def store_line_number(store_id)
     if store_id
       @number = Number.where(store_id: store_id).order('number DESC').take
-      @number.present? ? @number.number : nil
+      @number.present? ? @number.number : 0
     end
   end
 

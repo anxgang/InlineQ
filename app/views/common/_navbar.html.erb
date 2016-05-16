@@ -16,21 +16,19 @@
          <!-- Collect the nav links, forms, and other content for toggling -->
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
              <ul class="nav navbar-nav">
-                 <li>
-                     <a href="#">關於我們</a>
-                 </li>
-                 <li>
-                     <a href="#">服務說明</a>
-                 </li>
-                 <li>
-                     <a href="#">聯絡我們</a>
-                 </li>
+                 <li class="<%= "active" if current_page?(about_pages_path) %>"><%= link_to("關於我們", about_pages_path) %></li>
+                 <li class="<%= "active" if current_page?(services_pages_path) %>"><%= link_to("服務說明", services_pages_path) %></li>
+                 <li class="<%= "active" if current_page?(contact_pages_path) %>"><%= link_to("聯絡我們", contact_pages_path) %></li>
              </ul>
 
              <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">您好，<%= try(:current_user).try(:email) %> <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                      <%= try(:current_user).try(:email) %>
+                      <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                       <li class="dropdown-header">會員功能</li>
                         <li><a href="#">尚未開放..</a></li>
@@ -48,7 +46,7 @@
 
                 </li>
                 <li><%= link_to(new_user_registration_path) do %>
-                      <span class="glyphicon glyphicon-sign-up" aria-hidden="true"></span> 註冊
+                      <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 註冊
                     <% end %></li>
               <% end %>
               </ul>

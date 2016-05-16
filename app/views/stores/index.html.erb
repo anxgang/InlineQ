@@ -48,8 +48,10 @@
 
                         <h4><%= link_to(store.name, store_path(store)) %></h4>
                         <p>
-                          <%= store.tel %>
-                        </p>
+                        <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> <%= store.tel %>
+                        <br>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="badge  alert-danger"> 排隊人數  <%= store_line_number(store.id) %></span></p>
+
                         <p><%= truncate(store.content, length: 100) %></p>
                     </div>
                     <div class="ratings">
@@ -69,7 +71,7 @@
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <h4><a href="#">提供更多商家？</a>
                 </h4>
-                <p>您找不到想要的商家嗎？想提供更多商家讓您的生活更加便利，請點<a target="_blank" href="#">加入說明</a>提供更多熱門商家!</p>
+                <p>您找不到想要的商家嗎？想提供更多商家讓您的生活更加便利，請點<%= link_to("服務說明", services_pages_path) %>提供更多熱門商家!</p>
                 <%= link_to("立刻提供", new_store_path, class: "btn btn-danger"  ) %>
             </div>
 

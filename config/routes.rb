@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
+
   root 'stores#index'
 
+  resources :pages do
+    collection do
+      get :about
+      get :services
+      get :contact
+    end
+  end
+  
   resources :stores do
     member do
       get :line_up
